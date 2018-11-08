@@ -1,11 +1,12 @@
 import Contacts
-import time
+import datetime
 
 lista_contactos = []
 
 print("Agenda de contactos")
 
 def newContact():
+    now = datetime.datetime.now()
     print("Ingrese los datos del contacto")
     telefono = input("Ingrese el número telefónico ")
     tipo_numero = input("Casa, oficina, movil? ")
@@ -14,7 +15,7 @@ def newContact():
     age = input ("Ingrese la edad ")
     email = input("Ingrese el email ")
 
-    nuevo_contacto = Contacts.Contact(time.strftime("%x"), name, last_name, age, email)
+    nuevo_contacto = Contacts.Contact(now.strftime("%Y-%m-%d %H:%M"), name, last_name, age, email)
     sirvio = nuevo_contacto.addNumber(tipo_numero, telefono)
     if sirvio:
         print("Ajam")
@@ -24,8 +25,8 @@ def newContact():
     lista_contactos.append(nuevo_contacto)
 
 def showContacts():
-    lista_contactos.sort(key=time.strftime("%x"))
-
+    sorted(lista_contactos, key=lambda x: datetime.datetime.strptime(x.fecha_creado, "%Y-%m-%d %H:%M"))
+    lista_contactos.reverse()
     for cont in lista_contactos:
         print(cont.nombre," ", cont.apellido, cont.edad, cont.email)
         for type, tel in cont.phones.items():
