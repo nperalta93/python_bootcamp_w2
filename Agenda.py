@@ -43,19 +43,3 @@ while rta == 's' or rta == 'S':
     opc = int(input("Ingrese la opcion deseada "))
     menu(opc)
     rta = input("Desea continuar? Presione S/s")
-
-"""
-selection = 0    
-while(selection != 4):
-    selection = input
-    
-Selection = 0
-while (Selection != 4):
- print("0. Blue")
- print("1. Red")
- print("2. Orange")
- print("3. Yellow")
- print("4. Quit")
- Selection = int(input("Select a color option: "))
- if (Selection >= 0) and (Selection < 4):
-  ColorSelect[Selection]()"""
