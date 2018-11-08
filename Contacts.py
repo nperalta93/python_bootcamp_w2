@@ -1,4 +1,4 @@
-#Code by Nicolás Peralta
+# Code by Nicolás Peralta
 
 class Contact:
 
@@ -11,3 +11,9 @@ class Contact:
         self.email = email
         self.escondido = False
 
+    def addNumber(self, nombre_contacto, numero):
+        try:
+            self.phones.setdefault(nombre_contacto, numero)
+            return True
+        except:
+            return False
