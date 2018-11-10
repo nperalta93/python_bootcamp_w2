@@ -1,26 +1,33 @@
 import Contacts
 import datetime
+import json
 
 lista_contactos = []
 
 print("Agenda de contactos")
 
 def newContact():
+    nuevo_contacto = Contacts.Contact("","","","","")
     now = datetime.datetime.now()
     print("Ingrese los datos del contacto")
     telefono = input("Ingrese el número telefónico ")
-    tipo_numero = input("Casa, oficina, movil? ")
+    tipo_numero = nuevo_contacto.phoneType(int(input("Casa, oficina, movil? ")))
     name = input("Ingrese el nombre ")
     last_name = input("Ingrese el apellido ")
     age = input ("Ingrese la edad ")
     email = input("Ingrese el email ")
-
     nuevo_contacto = Contacts.Contact(now.strftime("%Y-%m-%d %H:%M"), name, last_name, age, email)
     sirvio = nuevo_contacto.addNumber(tipo_numero, telefono)
     if sirvio:
-        print("Ajam")
+        print("Contacto añadido")
     else:
-        print("naaa")
+        print("Error al añadir el número, intente de nuevo")
+        return
+
+    with open('contacto.json', 'w') as file:
+        jsonContacto = json.dumps(nuevo_contacto, default = jsonDefault)
+        json.dump(jsonContacto, file)
+
 
     lista_contactos.append(nuevo_contacto)
 
@@ -36,8 +43,11 @@ def menu(option):
     menu = {1: newContact,
           2: showContacts}
 
-    func = menu.get(option, lambda : "Opción inexistente")
+    func = menu.get(option, lambda : print("Opción inexistente"))
     func()
+
+def jsonDefault(object):
+    return object.__dict__
 
 rta = 's'
 while rta == 's' or rta == 'S':

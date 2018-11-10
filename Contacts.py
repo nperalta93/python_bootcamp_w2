@@ -11,9 +11,19 @@ class Contact:
         self.email = email
         self.escondido = False
 
-    def addNumber(self, nombre_contacto, numero):
+    def phoneType(self, type):
+        phone_type = {1: "Casa",
+                     2: "Movil",
+                     3: "Oficina",
+                     }
+
+        return phone_type.get(type, lambda : print("Opción inexistente"))
+
+
+
+    def addNumber(self, phone_type, numero):
         try:
-            self.phones.setdefault(nombre_contacto, numero)
+            self.phones.setdefault(phone_type, numero)
             return True
         except:
             return False
